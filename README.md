@@ -71,7 +71,7 @@ npm -v
 The versions of node and npm you currently have installed should appear. If you don't have them installed, follow Node installation instructions located [here](https://nodejs.org/en/download/). NPM is distributed with Node.js- which means that when you download Node.js, you automatically get npm installed on your computer.
 
 #### Starting the application
-1. Open Terminal and navigate into the directory that you just cloned down using your terminal
+1. Open Terminal and navigate into the directory that you just cloned down 
 2. Type <b> npm i </b>  (this will install all dependencies)
     
     - chalk (terminal string styling) 

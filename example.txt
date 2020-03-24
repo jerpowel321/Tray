@@ -1,0 +1,121 @@
+Example Test Cases
+
+1. Provided Test Case
+
+Input:
+
+5 5
+1 2
+1 0
+2 2
+2 3
+NNESEESWNWW
+
+Output:
+
+1 3
+1
+
+Work as expected: Yes
+
+2. Add 1 2 as a dirty tile
+
+Input:
+
+5 5
+1 2
+1 0
+2 2
+2 3
+1 2
+NNESEESWNWW
+
+Output:
+
+1 3
+2
+
+Work as expected: Yes
+
+3. Change grid, all tiles are dirty, robot will hover over all of them
+
+Input: 
+
+2 2
+2 2
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+SSWWNNES
+
+Output:
+
+1 1
+9
+
+Work as expected: Yes
+
+4. Change grid, no dirty tiles
+
+Input: 
+
+1 1
+0 0
+NESW
+
+Output:
+
+0 0
+0
+
+Work as expected: Yes
+
+5. Change grid so there is only 2 potential hover positions
+
+Input: 
+
+0 1
+0 0
+0 1
+N
+
+Output: 
+0 1
+1
+
+Work as expected: Yes
+
+6. Change grid so there is only 1 potential hover position
+
+Input:
+
+0 0
+0 0
+N
+
+Output:
+
+The X and Y coordinates of your grid dimensions need to be greater or equal to 1
+
+Work as expected: Yes
+
+7. Change grid so there is only 1 potential hover position
+
+Input:
+
+10 10
+1 1
+N
+
+Output:
+
+1 2
+0
+
+Work as expected: Yes

@@ -18,52 +18,63 @@ let directions = ""
 let endingPoisition = [0, 0];
 let score = 0;
 let currentPosition = [];
+let contentArr = []
 
 // created a function called setUp to update the starting position, grid, dirty tiles, directions and current position based on the content in the text file, index.txt
 function setUp(content) {
-    // define a variable to represent the length of the content in the text file
-    let len = content.length;
-    // iterate through the text file to set up the starting position, grid, dirty tiles, directions and current position
+    // update content array so each line in the text file is an element in the array
+    contentArr = content.split("\n");
+    // define a variable to represent the length of the contentArray (rows in the text file)
+    let len = contentArr.length
+    // iterate through the content Array to set up the starting position, grid, dirty tiles, directions and current position
     for (let k = 0; k < len; k++) {
-        // check to see if the value is either N, E, S or W as this would indicate the directions for the robotic hover 
-        if (content[k] === "N" || content[k] === "E" || content[k] === "S" || content[k] === "W") {
+        // check to see if the value of the first character in the row is either N, E, S or W as this would indicate the directions for the robotic hover 
+        if (contentArr[k][0] === "N" || contentArr[k][0] === "E" || contentArr[k][0] === "S" || contentArr[k][0] === "W") {
             // if the value is N, E, S or W I want to use that index as the point where I am going to take the remaining values of the content and update the variable directions
-            directions = content.slice(k)
+            directions = contentArr[k]
             // calling on updateScore function below to see if the current position of the robot is a dirty tile, if it is, update the score variable
             updateScore(currentPosition[0], currentPosition[1])
             // the last part of the program set up is updating directions so now I call on the startCleaning function below
             startCleaning(directions)
             return;
         }
-        // the first line of the file holds the room dimensions, so the content of the file at indices 0 and 2 will represent the grid row and grid column 
+        // the first line of the file holds the room dimensions, so the content array at indices 0 will represent the grid row and grid column 
         else if (k === 0) {
+            let strNumArr = contentArr[k].split(' ')
             // converting the string into a number
-            let xAxis = Number(content[k]);
-            let yAxis = Number(content[k + 2]);
+            let xAxis = Number(strNumArr[0]);
+            let yAxis = Number(strNumArr[1]);
+            // Making sure that the grid has at least a dimension 0 1 or 1 0 as the robot needs to be able to move to at least 1 tile
+            if (xAxis <= 0 && yAxis <= 0) {
+                console.log(chalk.cyan("The X and Y coordinates of your grid dimensions need to be greater or equal to 1"))
+                return;
+            }
             // update variables grid, xAxisMax, yAxisMax so I know the size of the room and know later if a direction cannot be made as the hover would hit into a wall
-            grid = [xAxis, yAxis];
-            xAxisMax = xAxis;
-            yAxisMax = yAxis;
+            else {
+                grid = [xAxis, yAxis];
+                xAxisMax = xAxis;
+                yAxisMax = yAxis;
+            }
         }
-        // the second line holds the inital hover position
-        else if (k === 4) {
+        // the second line of the file holds the inital hover position, so the content array at indices 1 will represent the X and Y cordinates of the inital position of the robot
+        else if (k === 1) {
+            let strNumArr = contentArr[k].split(' ')
             // converting the string into a number
-            let xAxis = Number(content[k]);
-            let yAxis = Number(content[k + 2]);
+            let xAxis = Number(strNumArr[0]);
+            let yAxis = Number(strNumArr[1]);
             // updating the starting position and current position
             startingPosition = [xAxis, yAxis];
             currentPosition = startingPosition;
         }
-        //subsequent lines contain (the zero or more positions of) patches of dirt (one per line)
-        else if (k % 4 === 0 && k > 5) {
+        // subsequent lines of the file contain (the zero or more positions of) patches of dirt (one per line)
+        else {
+            let strNumArr = contentArr[k].split(' ')
             // converting the string into a number
-            let xAxis = Number(content[k]);
-            let yAxis = Number(content[k + 2]);
+            let xAxis = Number(strNumArr[0]);
+            let yAxis = Number(strNumArr[1]);
             // I want the coordinates to be added into the dirt array variable
             dirtyTiles.push([xAxis, yAxis]);
         }
-        else
-            continue;
 
     }
 }
@@ -159,7 +170,6 @@ function startCleaning() {
 function updateScore(xAxis, yAxis) {
     // check to see if there are any dirty tiles, if not exit out of the function
     if (dirtyTiles.length === 0) {
-        console.log(chalk.cyan("Looks like you don't have any more dirty tiles!"));
         return;
     }
     else {
