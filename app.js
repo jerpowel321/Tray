@@ -1,15 +1,11 @@
-const express = require('express')
-const app = express()
-const port = 3000
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-
+// The Node.js file system module allows you to work with the file system on your computer.
+// To include the File System module, use the require() method:
 var fs = require('fs');
+
+//The fs.readFile() method is used to read files on your computer.
 var content = fs.readFileSync('index.txt', 'utf8');
 
+const chalk = require('chalk');
 
 let startingPosition = [];
 let grid = [];
@@ -31,6 +27,8 @@ function setUp(content) {
         if (content[k] === "N" || content[k] === "E" || content[k] === "S" || content[k] === "W") {
             // if the value is N, E, S or W I want to use that index as the point where I am going to take the remaining values of the content and update the variable directions
             directions = content.slice(k)
+            // calling on updateScore function below to see if the current position of the robot is a dirty tile, if it is, update the score variable
+            updateScore(currentPosition[0], currentPosition[1])
             // the last part of the program set up is updating directions so now I call on the startCleaning function below
             startCleaning(directions)
             return;
@@ -87,7 +85,7 @@ function startCleaning() {
         let yAxis = currentPosition[1] + 1;
         // if the updated yAxis is greater than the yMax dimension of the room, then the robot cannot move in that direction (cannot move through a wall)
         if (yAxis > yAxisMax) {
-            console.log("Whoops! Looks like you hit a wall and can't move up. Try another move.")
+            console.log(chalk.cyan("Whoops! Looks like you hit a wall and can't move up. Try another move."))
             return;
         }
         else {
@@ -104,7 +102,7 @@ function startCleaning() {
         let yAxis = currentPosition[1];
         // if the updated xAxis is greater than the xMax dimension of the room, then the robot cannot move in that direction (cannot move through a wall)
         if (xAxis > xAxisMax) {
-            console.log("Whoops! Looks like you hit a wall and can't move right. Try another move.")
+            console.log(chalk.cyan("Whoops! Looks like you hit a wall and can't move right. Try another move."))
             return;
         }
         else {
@@ -121,7 +119,7 @@ function startCleaning() {
         let yAxis = currentPosition[1] - 1;
         // if the updated yAxis is less than the yMin dimension of the room (which is 0), then the robot cannot move in that direction (cannot move through a wall)
         if (yAxis < 0) {
-            console.log("Whoops! Looks like you hit a wall and can't move down. Try another move.")
+            console.log(chalk.cyan("Whoops! Looks like you hit a wall and can't move down. Try another move."))
             return;
         }
         else {
@@ -138,7 +136,7 @@ function startCleaning() {
         let yAxis = currentPosition[1];
         // if the updated xAxis is less than the xMin dimension of the room (which is 0), then the robot cannot move in that direction (cannot move through a wall)
         if (xAxis < 0) {
-            console.log("Whoops! Looks like you hit a wall and can't move left. Try another move.")
+            console.log(chalk.cyan("Whoops! Looks like you hit a wall and can't move left. Try another move."))
             return;
         }
         else {
@@ -159,7 +157,7 @@ function startCleaning() {
 function updateScore(xAxis, yAxis) {
     // check to see if there are any dirty tiles, if not exit out of the function
     if (dirtyTiles.length === 0) {
-        console.log("Looks like you don't have any dirty tiles!");
+        console.log(chalk.cyan("Looks like you don't have any more dirty tiles!"));
         return;
     }
     else {
@@ -183,7 +181,7 @@ function cleaningOver() {
     // update endingPosition variable to be the currentPosition
     endingPoisition = currentPosition
     // print out the final hover position (x and y coordinates)
-    console.log(endingPoisition[0], endingPoisition[1])
+    console.log(chalk.magenta(endingPoisition[0], endingPoisition[1]))
     // pring out number of patches of dirt the robot cleaned up
-    console.log(score)
+    console.log(chalk.magenta(score))
 }
