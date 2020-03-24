@@ -9,68 +9,69 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 var fs = require('fs');
 var content = fs.readFileSync('index.txt', 'utf8');
-// console.log("Blah blah blah", content);
 
 
 let startingPosition = [];
 let grid = [];
-let xAxisMax = grid[0]
-let yAxisMax = grid[1]
+let xAxisMax = 0
+let yAxisMax = 0
 let dirt = [];
 let directions = ""
 let endingPoisition = [0, 0];
 let score = 0;
 let currentPosition = [];
 
-// console.log("Starting directions", directions)
-// console.log("Current Position", currentPosition)
-// console.log("Dirty Tiles", dirt)
+// created a function called setUp to update the starting position, grid, dirty tiles, directions and current position based on the content in the text file, index.txt
 function setUp(content) {
-    console.log("blah blah blah", content)
+    // define a variable to represent the length of the content in the text file
     let len = content.length;
-    console.log("this is the content length" ,len)
-    // for (let i = 0; i < len; i++) {
-
-    //     //    console.log(content[i])
-    // }
+    // iterate through the text file to set up the starting position, grid, dirty tiles, directions and current position
     for (let k=0; k<len; k++){
+        // check to see if the value is either N, E, S or W as this would indicate the directions for the robotic hover 
         if (content[k] === "N" || content[k] === "E" || content[k] === "S" || content[k] === "W"){
+            // if the value is N, E, S or W I want to use that index as the point where I am going to take the remaining values of the content and update the variable directions
             directions = content.slice(k)
-            console.log("This should be the directions", directions)
+            // the last part of the program set up is updating directions so now I call on the startCleaning function below
+            startCleaning(directions)
             return;
         }
+        // the first line of the file holds the room dimensions, so the content of the file at indices 0 and 2 will represent the grid row and grid column 
         else if (k === 0){
+            // converting the string into a number
             let xAxis = Number(content[k]);
             let yAxis = Number(content[k+2]);
+            // update variables grid, xAxisMax, yAxisMax so I know the size of the room and know later if a direction cannot be made as the hover would hit into a wall
             grid = [xAxis, yAxis];
-            console.log("This is the grid " , grid);
+            xAxisMax = xAxis;
+            yAxisMax = yAxis;
         }
+        // the second line holds the inital hover position
         else if (k === 4){
+            // converting the string into a number
             let xAxis = Number(content[k]);
             let yAxis = Number(content[k+2]);
+            // updating the starting position and current position
             startingPosition = [xAxis, yAxis];
-            console.log("This is the starting position" , startingPosition);
             currentPosition = startingPosition;
-            console.log("This should be the current position ", currentPosition)
         }
-        else if (k%4 === 0 && k !=0 && k>5){
+        //subsequent lines contain (the zero or more positions of) patches of dirt (one per line)
+        else if (k%4 === 0 && k>5){
+            // converting the string into a number
             let xAxis = Number(content[k]);
             let yAxis = Number(content[k+2]);
+            // I want the cordinates to be added into the dirt array variable
             dirt.push([xAxis, yAxis]);
-            console.log("This should be the dirty tiles ", dirt)
         }
         else
         continue;
         
     }
-    console.log("This should update the starting position", startingPosition)
-    console.log("This should be the current Position", currentPosition)
-    // runProgram(directions)
-
 }
+
 setUp(content)
 
-function runProgram(directions) {
+// created a function called startCleaning where the robot hover will move around the room based on the directions N - North, E - East, S - South, W - West
+function startCleaning() {
     let direction = directions[0]
     if (direction === undefined) {
         console.log("Game is over")
@@ -127,7 +128,7 @@ function runProgram(directions) {
     }
     directions = directions.substring(1);
     console.log(directions)
-    runProgram(directions)
+    startCleaning(directions)
 }
 
 
