@@ -5,8 +5,10 @@ var fs = require('fs');
 //The fs.readFile() method is used to read files on your computer.
 var content = fs.readFileSync('index.txt', 'utf8');
 
+// Including chalk for string styling in terminal
 const chalk = require('chalk');
 
+// declare the following variables and assign values
 let startingPosition = [];
 let grid = [];
 let xAxisMax = 0

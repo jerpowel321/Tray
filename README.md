@@ -1,6 +1,6 @@
 # P6B-lt2 :robot: Robotic Hover Cleaner 
 
-# Introduction 
+## Introduction 
 
 P6B-lt2 is tasked with cleaning a room with dimensions as X and Y coordinates, identifying the top right corner of the room rectangle. 
 
@@ -15,13 +15,13 @@ Placing P6B-lt2 on a patch of dirt ("hoovering") removes the patch of dirt so th
 
 Driving into a wall has no effect (the robot skids in place).
 
-# Goal
+## Goal
 The goal of the program is to take the room dimensions, the locations of the dirt patches, P6B-lt2 location and the driving instructions as input and to then output the following:
 
 - The final hover position (X, Y)
 - The number of patches of dirt the robot cleaned up
 
-# Input
+## Input
 Program input is received in a file input.txt and resides in the same directory as my executable program.
 
 Example:
@@ -39,7 +39,7 @@ NNESEESWNWW
 - subsequent lines contain the zero or more positions of patches of dirt (one per line)
 - the next line then always contains the driving instructions (at least one)
 
-# Output
+## Output
 Program output is printed to the standard output (STDOUT) of the terminal
 
 - The first line of my program output displays the X and Y coordinates marking the position of P6B-lt2 after processing all commands.
@@ -52,7 +52,7 @@ Example (matching the input above):
 1
 ```
 
-# 🔑 How to Run the App
+## 🔑 How to Run the App
 
 #### Clone the repository
 1. Open Terminal
@@ -72,18 +72,19 @@ The versions of node and npm you currently have installed should appear. If you 
 
 #### Starting the application
 1. Open Terminal and navigate into the directory that you just cloned down using your terminal
-2. Type npm i which will install all dependencies
+2. Type <b> npm i </b>  (this will install all dependencies)
     
     - chalk (terminal string styling) 
-3. Run the program by typing node app.js
+3. Run the program by typing <b> node app.js </b>
 
 #### Test the program
 Feel free to change x and y coordinates of the room, of P6B-lt2 initial position within the room, of dirty tiles in the room and directions (N,S,E,W) within the index.txt file. 
 
 <b> Make sure at the very minimum that you provide the grid coordinates, starting position of P6B-lt2 and directions. </b>
+- Note that inputs must be provided in a certain order. Refer back to the section above under Input
 - Once you make changes to index.txt, make sure to rerun the program. 
 
 
-# 🔧 Technologies Used
+## 🔧 Technologies Used
 - Javascript
 - Node.js 
