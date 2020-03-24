@@ -189,3 +189,22 @@ Output:
 2
 
 Works as expected: Yes
+
+12. Moving over the same dirty tile twice 
+
+Input: 
+
+2000 1000
+1000 998
+100 998
+2000 998
+1000 999
+NNS
+
+
+Output: 
+
+1000 999
+1
+
+Works as expected: Yes
