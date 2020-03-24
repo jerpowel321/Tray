@@ -32,11 +32,21 @@ function setUp(content) {
         if (contentArr[k][0] === "N" || contentArr[k][0] === "E" || contentArr[k][0] === "S" || contentArr[k][0] === "W") {
             // if the value is N, E, S or W I want to use that index as the point where I am going to take the remaining values of the content and update the variable directions
             directions = contentArr[k]
-            // calling on updateScore function below to see if the current position of the robot is a dirty tile, if it is, update the score variable
-            updateScore(currentPosition[0], currentPosition[1])
-            // the last part of the program set up is updating directions so now I call on the startCleaning function below
-            startCleaning(directions)
-            return;
+            // if the robot initial position has not been included in the index.txt file return the below message
+            if (typeof currentPosition[0] != 'number') {
+                console.log(chalk.cyan("Whoops, looks like you forgot to set the initial position for P6B-lt2! Update your index.txt file and try again. Make sure your robot initial position coordinates are on the second line!"))
+                return;
+            }
+            else if (currentPosition[0] < 0 || currentPosition[1] <0 || currentPosition[0]>xAxisMax || currentPosition[1]>yAxisMax) {
+                console.log(chalk.cyan("Whoops, looks like your initial position for P6B-lt2 is not located in the room! Make sure you update your index.txt file with a starting position within the grid and that the cordinates are on the second line!"))
+                return;
+            }
+            else
+                // calling on updateScore function below to see if the current position of the robot is a dirty tile, if it is, update the score variable
+                updateScore(currentPosition[0], currentPosition[1])
+                // the last part of the program set up is updating directions so now I call on the startCleaning function below
+                startCleaning(directions)
+                return;
         }
         // the first line of the file holds the room dimensions, so the content array at indices 0 will represent the grid row and grid column 
         else if (k === 0) {
@@ -46,6 +56,7 @@ function setUp(content) {
             let yAxis = Number(strNumArr[1]);
             // Making sure that the grid has at least a dimension 0 1 or 1 0 as the robot needs to be able to move to at least 1 tile
             if (xAxis <= 0 && yAxis <= 0) {
+                // if the grid dimensions are negative or provide no possible moves for the robot to make then return the below message
                 console.log(chalk.cyan("The X and Y coordinates of your grid dimensions need to be greater or equal to 1"))
                 return;
             }
@@ -76,6 +87,9 @@ function setUp(content) {
             dirtyTiles.push([xAxis, yAxis]);
         }
 
+    }
+    if (directions === '') {
+        console.log(chalk.cyan("Whoops, looks like you forgot to add directions for P6B-lt2! Update your index.txt file and try again. Possible directions are NESW."))
     }
 }
 

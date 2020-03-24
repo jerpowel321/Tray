@@ -105,7 +105,7 @@ The X and Y coordinates of your grid dimensions need to be greater or equal to 1
 
 Work as expected: Yes
 
-7. Change grid so there is only 1 potential hover position
+7. Change grid to double didget size
 
 Input:
 
@@ -119,3 +119,73 @@ Output:
 0
 
 Work as expected: Yes
+
+7. Change grid values to negative
+
+Input:
+
+-10 -10
+1 1
+N
+
+Output:
+
+The X and Y coordinates of your grid dimensions need to be greater or equal to 1
+
+Work as expected: Yes
+
+8. Doesn't include directions
+
+Input:
+
+10 10
+1 1
+
+Output:
+Whoops, looks like you forgot to add directions for P6B-lt2! Update your index.txt file and try again. Possible directions are NESW.
+
+Work as expected: Yes
+
+9. Doesn't include P6B-lt2 initial starting position
+
+Input: 
+
+10 10
+N
+
+Output:
+
+Whoops, looks like you forgot to set the initial position for P6B-lt2! Update your index.txt file and try again. Make sure your robot initial position coordinates are on the second line!
+
+Work as expected: Yes
+
+10. Invalid initial hover position
+
+Input:
+
+10 10
+11 10
+S
+
+Output:
+
+Whoops, looks like your initial position for P6B-lt2 is not located in the room! Make sure you update your index.txt file with a starting position within the grid and that the cordinates are on the second line!
+
+Works as expected: Yes
+
+11. Moving over the same dirty tile twice 
+
+Input: 
+
+2 2
+0 0
+0 1
+0 2
+NNSS
+
+Output: 
+
+00
+2
+
+Works as expected: Yes
