@@ -88,3 +88,6 @@ Feel free to change x and y coordinates of the room, of P6B-lt2 initial position
 ## 🔧 Technologies Used
 - Javascript
 - Node.js 
+- NPM packages
+
+    - chalk (terminal string styling) 
